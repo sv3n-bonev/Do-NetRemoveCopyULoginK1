@@ -1,0 +1,147 @@
+$okOrExit = "Въведете [y] ако желаете да продължите и [exit] ако желаете да излезете от програмта"
+
+while (($userInput = Read-Host -Prompt $okOrExit) -ne 'exit') {
+
+    switch ($userInput) {
+
+
+        Y {
+            Clear-Host
+            $dupDir = Read-Host "Айляк! Въведи име на директория, майна"
+            $sourceDir = Join-Path -Path (Join-Path -Path $Env:USERPROFILE -ChildPath 'Desktop') -ChildPath $dupDir
+
+            Clear-Host
+            $fromObj = "Въведи начален номер на обект"
+
+            $scriptBlockFrom = {
+
+                try {
+                    $fromInput = [int](Read-Host $fromObj)
+
+                    if ($fromInput -le 0) {
+
+                        Clear-Host
+                        Write-Host "Номерът на обекта не може да бъде отрицателна или нулева стойност! Добър опит СЛАБАК!"
+                        & $scriptBlockFrom
+
+                        }
+
+                    elseif (($fromInput -eq 5) -xor ($fromInput-ge 764) -xor ($fromInput -eq 48) -xor ($fromInput -eq 50) -xor ($fromInput -ge 207 -and $fromInput -le 503) -xor ($fromInput -ge 115 -and $fromInput -le 117) -xor ($fromInput -eq 61) -xor ($fromInput -eq 66) -xor ($fromInput -eq 75) -xor ($fromInput -eq 178) -xor ($fromInput -ge 180 -and $fromInput -le 188) -xor ($fromInput -ge 190 -and $fromInput -le 192) -xor ($fromInput -ge 200 -and $fromInput -le 201) -xor ($fromInput -eq 203) -xor ($fromInput -eq 205) -xor ($fromInput -ge 505 -and $fromInput -le 506) -xor ($fromInput -ge 508 -and $fromInput -le 512) -xor ($fromInput -ge 514 -and $fromInput -le 516) -xor ($fromInput -ge 518 -and $fromInput -le 520) -xor ($fromInput -ge 523 -and $fromInput -le 525) -xor ($fromInput -ge 527 -and $fromInput -le 532) -xor ($fromInput -ge 534 -and $fromInput -le 535) -xor ($fromInput -ge 540 -and $fromInput -le 543) -xor ($fromInput -ge 545 -and $fromInput -le 548) -xor ($fromInput -eq 553) -xor ($fromInput -eq 556) -xor ($fromInput -eq 558) -xor ($fromInput -eq 560) -xor ($fromInput -ge 564 -and $fromInput -le 566) -xor ($fromInput -ge 572 -and $fromInput -le 749) -xor ($fromInput -eq 568)) {
+                    
+                        Clear-Host
+                        Write-Host "Невалидно начално име на компютър. Няма такъв активен компютър."
+                        & $scriptBlockFrom
+
+                        }
+
+                    else {
+
+                        $fromInput
+                
+                        }
+                    }
+
+                catch {
+
+                    Clear-Host
+                    Write-Host "Казах начален НОМЕР на обект. Очаквам цяло число, а не какъвто и да е символ."
+                    & $scriptBlockFrom
+                    }
+
+                }
+
+            $fromInput = & $scriptBlockFrom
+
+            Clear-Host
+            $toObj = "Въведи краен номер на обект"
+
+            $scriptBlockTo = {
+
+                try {
+
+                    $toInput = [int](Read-Host $toObj)
+
+                    if ($toInput -le 0) {
+
+                    Clear-Host
+                    Write-Host "Номерът на обекта не може да бъде отрицателна или нулева стойност! Добър опит, СЛАБАК!"
+                    & $scriptBlockTo
+
+                    }
+
+                elseif ($toInput -lt $fromInput) {
+
+                    Clear-Host
+                    Write-Host "Крайният номер на обекта не може да е по-малък от началния. Ти сериозен ли си?"
+                    & $scriptBlockTo
+
+                    }
+
+                elseif (($toInput -eq 5) -xor ($toInput-ge 764) -xor ($toInput -eq 48) -xor ($toInput -eq 50) -xor ($toInput -ge 207 -and $toInput -le 503) -xor ($toInput -ge 115 -and $toInput -le 117) -xor ($toInput -eq 61) -xor ($toInput -eq 66) -xor ($toInput -eq 75) -xor ($toInput -eq 178) -xor ($toInput -ge 180 -and $toInput -le 188) -xor ($toInput -ge 190 -and $toInput -le 192) -xor ($toInput -ge 200 -and $toInput -le 201) -xor ($toInput -eq 203) -xor ($toInput -eq 205) -xor ($toInput -ge 505 -and $toInput -le 506) -xor ($toInput -ge 508 -and $toInput -le 512) -xor ($toInput -ge 514 -and $toInput -le 516) -xor ($toInput -ge 518 -and $toInput -le 520) -xor ($toInput -ge 523 -and $toInput -le 525) -xor ($toInput -ge 527 -and $toInput -le 532) -xor ($toInput -ge 534 -and $toInput -le 535) -xor ($toInput -ge 540 -and $toInput -le 543) -xor ($toInput -ge 545 -and $toInput -le 548) -xor ($toInput -eq 553) -xor ($toInput -eq 556) -xor ($toInput -eq 558) -xor ($toInput -eq 560) -xor ($toInput -ge 564 -and $toInput -le 566) -xor ($toInput -ge 572 -and $toInput -le 749) -xor ($toInput -eq 568)) {
+                    
+                    Clear-Host
+                    Write-Host "Невалидно крайно име на компютър. Няма такъв активен компютър."
+                    & $scriptBlockTo
+                    
+                    } 
+                     
+                else {
+
+                    $toInput
+                
+                    }
+
+                }
+
+                catch {
+
+                    Clear-Host
+                    Write-Host "Казах краен НОМЕР на обект. Очаквам цяло число, а не какъвто и да е символ."
+                    & $scriptBlockTo
+
+                    }
+
+                }
+
+            $toInput = & $scriptBlockTo
+
+            Clear-Host
+            $shareName = Read-Host "Густо! Въведи и share-натия път след \\pc00xxx... и сме готови! [Пример: D\example\dir]"
+
+            for ($i = $fromInput; $i -le $toInput; $i++) {
+
+
+                if (($i -eq 5) -xor ($i -ge 764) -xor ($i -eq 48) -xor ($i -eq 50) -xor ($i -ge 207 -and $i -le 503) -xor ($i -ge 115 -and $i -le 117) -xor ($i -eq 61) -xor ($i -eq 66) -xor ($i -eq 75) -xor ($i -eq 178) -xor ($i -ge 180 -and $i -le 188) -xor ($i -ge 190 -and $i -le 192) -xor ($i -ge 200 -and $i -le 201) -xor ($i -eq 203) -xor ($i -eq 205) -xor ($i -ge 505 -and $i -le 506) -xor ($i -ge 508 -and $i -le 512) -xor ($i -ge 514 -and $i -le 516) -xor ($i -ge 518 -and $i -le 520) -xor ($i -ge 523 -and $i -le 525) -xor ($i -ge 527 -and $i -le 532) -xor ($i -ge 534 -and $i -le 535) -xor ($i -ge 540 -and $i -le 543) -xor ($i -ge 545 -and $i -le 548) -xor ($i -eq 553) -xor ($i -eq 556) -xor ($i -eq 558) -xor ($i -eq 560) -xor ($i -ge 564 -and $i -le 566) -xor ($i -ge 572 -and $i -le 749) -xor ($i -eq 568)) {
+                    
+        
+                    continue
+
+                    }
+
+    
+                $destinationDir = '\\pc' + '{0:d5}' -f @($i) + "\$shareName\$dupDir"
+                $netUseDir = '\\pc' + '{0:d5}' -f @($i) + "\$shareName"
+                $passObj = '@dm1n@' + '{0:d3}' -f @($i)
+                net use $netUseDir $passObj /user:LOCAL\Admin
+
+                if (Test-Path -Path $destinationDir) {
+
+                    Remove-Item -Recurse -Force -Path $destinationDir
+                    Copy-Item -Recurse -Path $sourceDir -Destination $destinationDir
+
+                    }
+
+
+
+                }
+
+
+
+            }
+
+        }
+
+    Start-Sleep -s 3
+    Clear-Host
+
+    }
